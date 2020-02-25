@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 class App extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      tasks: this.props.initialTasks
+      tasks: [] //start as empty, not from props
     }
+  }
+
+  componentDidMount() {
+    fetch('tasks.json')
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({tasks: data}) //calls render!! OK because component has already been mounted
+      })
   }
 
   toggleComplete = (taskId) => {
@@ -28,17 +37,17 @@ class App extends Component {
 
   addTask = (taskDescription) => {
     this.setState((prevState, prevProps) => {
-      let copyTasks = prevState.tasks.map((eachTask) => {
+      let copyOfTasks = prevState.tasks.map((eachTask) => {
         return Object.assign({}, eachTask); //copy the object
       })
 
       let newTask = {
-        id: copyTasks.tasks[copyTasks.tasks.length].id + 1, //add 1 to id
+        id: copyOfTasks[copyOfTasks.length - 1].id + 1, //add 1 to id
         description: taskDescription,
         complete: false
       }
-      copyTasks.push(newTask);
-      return {tasks: copyTasks};
+      copyOfTasks.push(newTask);
+      return {tasks: copyOfTasks};
     });
   }
 
@@ -51,8 +60,8 @@ class App extends Component {
     return (
       <div className="container">
         <p className="lead">Things I have to do ({incomplete.length})</p>
-        <TaskList taskArray={tasks} />
-        <AddTaskForm />
+        <TaskList taskArray={tasks} howToToggle={this.toggleComplete} />
+        <AddTaskForm whatToDoWhenSubmitted={this.addTask} />
       </div>
     );
   }
@@ -60,12 +69,17 @@ class App extends Component {
 
 class TaskList extends Component {  
   render() {
+    if(this.props.taskArray.length == 0) {
+      return <p>No tasks found!</p>
+    }
+
     //do data processing
     let taskComponents = this.props.taskArray.map((eachTask) => {
       let singleTask = (
         <Task 
           key={eachTask.id} 
           task={eachTask} 
+          howToToggle={this.props.howToToggle}
         />
       );
       return singleTask;
@@ -80,45 +94,26 @@ class TaskList extends Component {
 }
 
 class Task extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      currentComplete: this.props.task.complete
-    };
-
-  }
-
-  //helper method
-  getClassName() {
-    let className = '';
-   if(this.state.currentComplete){
-//    if(this.props.task.complete){
-      className = 'font-strike';
-    }
-    return className;    
-  }
 
   doSomething = (evt) => {  //click handlier
-    //app.toggleTask(this.id);
-
     console.log("You clicked on", this.props.task.description);
-    //this.props.task.complete = !this.props.task.complete;
 
-    //modify state
-    this.setState(  (prevState, prevProps) => {
-      let updatedState = {
-        currentComplete: !prevState.currentComplete, //account for intermediate changes
-      }
-      return updatedState; //this is what I want to merge in when you have a sec
-  
-    })
+    this.props.howToToggle(this.props.task.id);
+
+    //App.toggleTask(this.id);
   };
 
   render() {
     console.log("rendering", this.props.task.description)
+
+    let fullClassName = '';
+
+    if(this.props.task.complete){
+      fullClassName = 'font-strike';
+    }
+
     return (
-      <li className={this.getClassName()} onClick={this.doSomething} >
+      <li className={fullClassName} onClick={this.doSomething} >
         {this.props.task.description}
       </li>
     );
@@ -126,16 +121,46 @@ class Task extends Component {
 }
 
 class AddTaskForm extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      inputValue: '' //what was typed in
+    }
+  }
+
+  handleChange = (event) => {
+    let inputElem = event.target; //which dom element
+    let newValue = inputElem.value;
+
+    this.setState({
+      inputValue: newValue.toUpperCase()
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submitting!", this.state.inputValue);
+
+
+    //App.addTask(this.state.inputValue)
+    this.props.whatToDoWhenSubmitted(this.state.inputValue);
+
+    this.setState({inputValue: ''});
+  }
+
   render() {
     return (
       <form>
         <input 
           className="form-control mb-3"
           placeholder="What else do you have to do?"
+          value={this.state.inputValue}
+          onChange={this.handleChange}
           />
-        <button className="btn btn-primary" >
+        <Button color="primary" onClick={this.handleSubmit} >
           Add task to list
-        </button>
+        </Button>
       </form>
     );
   }
