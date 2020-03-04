@@ -10,7 +10,277 @@
       {
         "title": "Threat Model Diagram",
         "thumbnail": "./public/content/images/thumbnail.jpg",
-        "id": 0
+        "id": 0,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 100,
+                "height": 100
+              },
+              "position": {
+                "x": 553,
+                "y": 203
+              },
+              "angle": 0,
+              "id": "44ac03af-385c-4c49-b827-02633d7798d7",
+              "z": 1,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Web Server"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "smooth": true,
+              "source": {
+                "x": 439,
+                "y": 75
+              },
+              "target": {
+                "x": 323,
+                "y": 488
+              },
+              "vertices": [],
+              "id": "864cf0f8-b7a3-4314-91e6-a0f69777cfec",
+              "z": 2,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "smooth": true,
+              "source": {
+                "x": 939,
+                "y": 100
+              },
+              "target": {
+                "x": 828,
+                "y": 489
+              },
+              "vertices": [],
+              "id": "f1056caa-25b1-4ad3-9d5e-a20fc78a1047",
+              "z": 3,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 47,
+                "y": 172
+              },
+              "angle": 0,
+              "id": "a1eb4975-c675-4103-8364-9e913d13fa04",
+              "z": 4,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Browser (End User)"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "a1eb4975-c675-4103-8364-9e913d13fa04"
+              },
+              "target": {
+                "id": "44ac03af-385c-4c49-b827-02633d7798d7"
+              },
+              "vertices": [
+                {
+                  "x": 130,
+                  "y": 179
+                },
+                {
+                  "x": 265,
+                  "y": 151
+                },
+                {
+                  "x": 364,
+                  "y": 157
+                }
+              ],
+              "id": "67be0d92-96d6-4be8-9923-2c84f42a6cf4",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "flow 4",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 5,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "44ac03af-385c-4c49-b827-02633d7798d7"
+              },
+              "target": {
+                "x": 147,
+                "y": 255
+              },
+              "vertices": [
+                {
+                  "x": 327,
+                  "y": 404
+                }
+              ],
+              "id": "624c6ed3-7895-4dc2-887b-b7aaa0a8e0d4",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "flow 5",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 6,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 996,
+                "y": 270
+              },
+              "angle": 0,
+              "id": "53f41d70-8865-4849-a88b-52963016b67d",
+              "z": 7,
+              "hasOpenThreats": false,
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Data"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "44ac03af-385c-4c49-b827-02633d7798d7"
+              },
+              "target": {
+                "id": "53f41d70-8865-4849-a88b-52963016b67d"
+              },
+              "vertices": [
+                {
+                  "x": 858,
+                  "y": 118
+                }
+              ],
+              "id": "74092729-081c-42c2-98c1-8138ebdaf22c",
+              "labels": [
+                {
+                  "position": {
+                    "distance": 0.5585817676486561,
+                    "offset": 2.5334397807654887
+                  },
+                  "attrs": {
+                    "text": {
+                      "text": "flow 7",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 8,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Flow",
+              "smooth": true,
+              "source": {
+                "id": "53f41d70-8865-4849-a88b-52963016b67d"
+              },
+              "target": {
+                "id": "44ac03af-385c-4c49-b827-02633d7798d7"
+              },
+              "vertices": [
+                {
+                  "x": 816,
+                  "y": 467
+                }
+              ],
+              "id": "967880fc-a24f-47c1-b5da-97ed6025ffff",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "flow 8",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 9,
+              "attrs": {}
+            }
+          ]
+        },
+        "size": {
+          "height": 590,
+          "width": 1159.0040283203125
+        }
       }
     ]
   }
